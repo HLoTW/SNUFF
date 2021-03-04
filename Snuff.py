@@ -114,7 +114,7 @@ def http():
     httpbasic()
   else:
     print("Please enter a valid number")
-    def httproxy():
+def httproxy():
   os.system("clear || cls")
   print("#-------------------- Proxy Http Flood --------------------#")
   ip = input("\nEnter IP/URL to attack: ")
