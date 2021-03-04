@@ -1,4 +1,6 @@
 # SNUFF
+Python2.7 - for the ProxyFlood.py 
+
 Python3 - A Network Scanner - Vulnerability Detection - Denial of Service Tool all in one with bane 
 
 What you would need are these requirements.
